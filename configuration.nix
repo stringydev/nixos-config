@@ -6,7 +6,6 @@
 
   imports = [
     ./hardware-configuration.nix
-    ./vmware-guest.nix
   ];
 
 
@@ -55,8 +54,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # VM-Tools
-  disabledModules = [ "virtualisation/vmware-guest.nix" ];
-  # virtualisation.vmware.guest.enable = true;
+  virtualisation.vmware.guest.enable = true;
 
   system.stateVersion = "24.05"; # Don't change it bro
 }  
