@@ -9,18 +9,6 @@
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
   home.file.".config/ghostty/config".source = ./ghostty;
 
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
-
-  # encode the file content in nix configuration file directly
-  # home.file.".xxx".text = ''
-  #     xxx
-  # '';
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     # here is some command line tools I use frequently
@@ -39,8 +27,11 @@
   ];
 
   # Hyprland
-  # programs.kitty.enable = true; # required for the default Hyprland config
-  # wayland.windowManager.hyprland.enable = true; # enable Hyprland
+  # wayland.windowManager.hyprland = {
+  # enable = true;
+  #  extraConfig = builtins.readFile ./hyprland;
+  #};
+
 
   # Kitty
   programs.kitty = {

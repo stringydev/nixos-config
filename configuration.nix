@@ -8,8 +8,6 @@
     ./hardware-configuration.nix
   ];
 
-
-
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -17,6 +15,9 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -26,16 +27,11 @@
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
   };
-  
-  programs.hyprland.enable = true;
-
-  environment.systemPackages = [
-    # ... other packages
-    pkgs.kitty # required for the default Hyprland config
-    pkgs.mesa
-    pkgs.gtk3
-    pkgs.xdg-desktop-portal-hyprland
-];
+ 
+  environment.systemPackages = with pkgs; [
+    kitty
+    vim
+  ];
 
   programs.zsh.enable = true;
 
@@ -45,17 +41,23 @@
     users.stringydev = {
       isNormalUser = true;
       extraGroups = [ "networkmanager" "wheel" "input" ];
+      openssh.authorizedKeys.keys = [
+	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsQ7imhxQZrlzUrJTQFhXbueh3klK2HPmzLUkzY6+Rf danny_bozbay@gmail.com"
+      ];
     };
   };
 
-  # Set your time zone/
   time.timeZone = "Europe/London";
 
   # Enable flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Trusted users
+  nix.settings.trusted-users = [ "root" "stringydev" ];
+
   # VM-Tools
   virtualisation.vmware.guest.enable = true;
+  services.xserver.videoDrivers = [ "vmware" ];
 
   system.stateVersion = "24.05"; # Don't change it bro
 }  
