@@ -24,13 +24,40 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
+    xkb.layout = "us";
+    dpi = 220;
+
+    desktopManager = {
+      xterm.enable = false;
+      wallpaper.mode = "fill";
+    };
+
+    displayManager = {
+      defaultSession = "none+i3";
+      lightdm.enable = true;
+    };
+
+    windowManager = {
+      i3.enable = true;
+    };
   };
- 
+
+  # Hardware acceleration
+  # hardware.opengl = {
+  #  enable = true;
+  # };
+
+  # Hyprland
+  # programs.hyprland = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #};
+
   environment.systemPackages = with pkgs; [
     kitty
     vim
+    git
+    cachix
   ];
 
   programs.zsh.enable = true;
@@ -40,7 +67,7 @@
     
     users.stringydev = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "input" ];
+      extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" ];
       openssh.authorizedKeys.keys = [
 	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsQ7imhxQZrlzUrJTQFhXbueh3klK2HPmzLUkzY6+Rf danny_bozbay@gmail.com"
       ];
@@ -61,4 +88,3 @@
 
   system.stateVersion = "24.05"; # Don't change it bro
 }  
-

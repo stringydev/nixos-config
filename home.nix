@@ -7,7 +7,13 @@
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
-  home.file.".config/ghostty/config".source = ./ghostty;
+
+  xdg.configFile = {
+    "i3/config".text = builtins.readFile ./i3;
+    "ghostty/config".text = builtins.readFile ./ghostty;
+    "kitty/kitty.conf".text = builtins.readFile ./kitty;
+  };
+
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -29,14 +35,13 @@
   # Hyprland
   # wayland.windowManager.hyprland = {
   # enable = true;
-  #  extraConfig = builtins.readFile ./hyprland;
-  #};
+  # extraConfig = builtins.readFile ./hyprland;
+  # };
 
 
   # Kitty
   programs.kitty = {
     enable = true;
-    extraConfig = builtins.readFile ./kitty;
   };
 
 
