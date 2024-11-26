@@ -124,7 +124,7 @@
       lla = "ll --all";
       nv = "nvim";
 
-      lg = "lazygit"
+      lg = "lazygit";
     };
   };
 
