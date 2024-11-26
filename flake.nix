@@ -15,9 +15,14 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ghostty = {
+      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+    };
+
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, ghostty, ... }: {
     nixosConfigurations = {
       # TODO please change the hostname to your own
       nixos = nixpkgs.lib.nixosSystem {
@@ -36,6 +41,12 @@
             home-manager.users.stringydev = import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          }
+
+          {
+            environment.systemPackages = [
+              ghostty.packages.x86_64-linux.default
+            ];
           }
         ];
       };
