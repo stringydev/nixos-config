@@ -101,7 +101,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     # TODO add your custom bashrc here
@@ -109,7 +109,7 @@
     #  export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     # '';
 
-    shellAliases = {
+    shellAliases = 
       let 
         flakeDir = "~/nix";
       in {
@@ -123,7 +123,8 @@
       ll = "ls -l";
       lla = "ll --all";
       nv = "nvim";
-      };
+
+      lg = "lazygit"
     };
   };
 
